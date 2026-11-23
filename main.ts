@@ -1,15 +1,13 @@
-// Driver for the site-generator-speed entry: reads every case from
-// /input/cases.json, answers each one with run() from solve.js, and writes
-// /output/answers.json in the cases' order. Outside a container
-// MAKEFUN_INPUT_DIR and MAKEFUN_OUTPUT_DIR stand in for /input and /output.
+// Driver: reads every case from /input/cases.json (or MAKEFUN_INPUT_DIR), answers
+// each one alone with run() from solve.js, and writes /output/answers.json
+// (or MAKEFUN_OUTPUT_DIR): a JSON array of the answers, one per case, in order.
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { setFlagsFromString } from 'node:v8';
 
 // V8's incremental marking off, set before solve.js is imported so all of its
-// work runs under it (the house baseline runs with this flag, and an entry
-// may tune V8's flags the same way).
+// work runs under it.
 setFlagsFromString('--no-incremental-marking');
 
 /** solve.js, imported by its URL (a .js module carries no types) and typed by its contract. */
